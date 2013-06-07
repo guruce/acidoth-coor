@@ -1,0 +1,19 @@
+<Context antiJARLocking="true">
+
+  <Resource name="jdbc/myDB" auth="Container" type="com.atomikos.jdbc.SimpleDataSourceBean"
+            factory="org.apache.naming.factory.BeanFactory"
+            uniqueResourceName="jdbc/myDB"
+            xaDataSourceClassName="org.apache.derby.jdbc.EmbeddedXADataSource"
+            exclusiveConnectionMode="true"
+            connectionPoolSize="3"
+            connectionTimeout="10"
+            xaDataSourceProperties="databaseName=../work/users1;createDatabase=create"/>
+
+  <!-- <Transaction factory="com.atomikos.icatch.jta.UserTransactionFactory" /> 
+  
+  <Resource name="TransactionManager" auth="Container" type="com.atomikos.icatch.jta.UserTransactionManager" 
+            description="TransactionManager"/> -->
+  
+  <Transaction factory="com.atomikos.icatch.jta.TransactionManagerFactory" />
+
+</Context> 
