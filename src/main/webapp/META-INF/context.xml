@@ -9,11 +9,11 @@
             connectionTimeout="10"
             xaDataSourceProperties="databaseName=../work/users1;createDatabase=create"/>
 
-  <!-- <Transaction factory="com.atomikos.icatch.jta.UserTransactionFactory" /> 
+  <Transaction factory="com.atomikos.icatch.jta.UserTransactionFactory" /> 
   
-  <Resource name="TransactionManager" auth="Container" type="com.atomikos.icatch.jta.UserTransactionManager" 
-            description="TransactionManager"/> -->
+  <!-- <Resource name="TransactionManager" auth="Container" type="com.atomikos.icatch.jta.UserTransactionManager" 
+            description="TransactionManager"/>
   
   <Transaction factory="com.atomikos.icatch.jta.TransactionManagerFactory" />
-
+  -->
 </Context> 
