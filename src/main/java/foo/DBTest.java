@@ -9,15 +9,12 @@ import java.sql.Connection;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import javax.transaction.Transaction;
 import javax.transaction.UserTransaction;
-import javax.transaction.TransactionManager;
 
 public class DBTest{
 
     int foo = -1;
 	private String appName = "mytransaction: ";
-//    private static TransactionManager tm;
     // value stored in DB
 
     public void init(String completion) {
@@ -25,17 +22,16 @@ public class DBTest{
             Context ctx = new InitialContext();
 
             // JDBC stuff
-            DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/myDB");
+            DataSource ds =
+                (DataSource)ctx.lookup("java:comp/env/jdbc/myDB");
             ensureTableExists(ds);
 
-            TransactionManager tm = (TransactionManager)ctx.lookup("java:comp/TransactionManager");
-//            tm = utm;
-            
+            UserTransaction ut = (UserTransaction)ctx.lookup("java:comp/UserTransaction");
+
             Connection conn = ds.getConnection();
 
             System.out.println(appName + "<<< beginning the transaction >>>");
-            tm.begin();
-            Transaction transaction = tm.getTransaction();
+            ut.begin();
 
              // JDBC statements
              Statement stmt = conn.createStatement();
@@ -52,10 +48,10 @@ public class DBTest{
 
               if (completion != null && completion.equals("commit")) {
                   System.out.println(appName + "<<< committing the transaction >>>");
-                  transaction.commit();
+                  ut.commit();
               } else {
                   System.out.println(appName + "<<< rolling back the transaction >>>");
-                  transaction.rollback();
+                  ut.rollback();
               }
 
              // we set foo to the value stored in the DB
